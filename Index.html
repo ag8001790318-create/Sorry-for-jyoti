@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Please Read This Once</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Poppins,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    overflow:hidden;
+    color:white;
+}
+
+.container{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    width:90%;
+    max-width:400px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border-radius:25px;
+    padding:20px;
+    text-align:center;
+}
+
+img{
+    width:250px;
+    height:250px;
+    border-radius:20px;
+    object-fit:cover;
+    transition:1s;
+}
+
+#text{
+    margin-top:20px;
+    font-size:20px;
+    line-height:32px;
+}
+
+button{
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+#yes,#no{
+    display:none;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+}
+
+#no{
+    position:absolute;
+}
+
+.heart{
+    position:absolute;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<img id="photo" src="images/me.jpg">
+
+<div id="text"></div>
+
+<button id="next">Continue ❤️</button>
+
+<button id="yes">YES ❤️</button>
+
+<button id="no">NO 💔</button>
+
+</div>
+
+</div>
+
+<script>
+
+const texts=[
+
+"🌙 Agar tum yeh dekh rahi ho, to iska matlab hai ki main dil se kuch kehna chahta hoon.",
+
+"✨ Main yeh nahin chahta ki tum turant mujhe maaf kar do.",
+
+"🤍 Main sirf itna chahta hoon ki tum meri baat poori sun lo.",
+
+"❤️ Pichhle 4.5 saalon mein bahut kuch badla, lekin ek cheez kabhi nahin badli.",
+
+"😔 Tumhari jagah hamesha meri zindagi mein khaas rahi hai.",
+
+"💔 Aur isi wajah se aaj main apni galti maanane aaya hoon.",
+
+"🥺 Gusse mein maine tumhe block kar diya aur breakup tak bol diya.",
+
+"🌹 Mujhe pata hai ki mere shabdon ne tumhe bahut dukh pahunchaya hoga.",
+
+"🤍 Main apne kiye hue kaam ko sahi saabit nahin karna chahta.",
+
+"🙏 Main sirf dil se maafi maang raha hoon.",
+
+"🕊️ Agar mumkin ho, to mujhe maaf kar dena.",
+
+"❤️ Kya tum mujhe ek mauka dena chahogi?"
+];
+
+const photos=[
+"images/me.jpg",
+"images/me.jpg",
+"images/couple.jpg",
+"images/jyoti.jpg",
+"images/couple.jpg",
+"images/me.jpg",
+"images/jyoti.jpg",
+"images/couple.jpg",
+"images/me.jpg",
+"images/jyoti.jpg",
+"images/couple.jpg",
+"images/jyoti.jpg"
+];
+
+let page=0;
+
+const text=document.getElementById("text");
+const image=document.getElementById("photo");
+
+function loadPage(){
+
+    image.src=photos[page];
+    text.innerHTML=texts[page];
+
+    if(page===11){
+
+        document.getElementById("next").style.display="none";
+
+        document.getElementById("yes").style.display="inline";
+
+        document.getElementById("no").style.display="inline";
+    }
+}
+
+loadPage();
+
+document.getElementById("next").onclick=function(){
+
+    page++;
+
+    if(page<texts.length){
+        loadPage();
+    }
+};
+
+document.getElementById("no").addEventListener("mouseover",function(){
+
+    this.style.left=Math.random()*300+"px";
+    this.style.top=Math.random()*500+"px";
+
+});
+
+document.getElementById("yes").onclick=function(){
+
+document.body.innerHTML=`
+
+<div class="container">
+
+<div class="card">
+
+<h1>❤️ Thank You ❤️</h1>
+
+<br>
+
+<p>
+
+Main tumse behas karne nahin aaya tha.
+
+Main sirf apni galti maanane aaya tha.
+
+❤️
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+};
+
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},5000);
+
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
